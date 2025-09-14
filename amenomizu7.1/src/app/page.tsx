@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 import Image from "next/image";
 
 export default function Home() {
@@ -14,51 +14,43 @@ export default function Home() {
           priority
         />
 
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          width:'100%'
-        }}>
-          <h2 style={{
-              color : 'gray'
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <h2
+            style={{
+              color: "gray",
             }}
-            >since 2020.04.08 〜
-            </h2>
+          >
+            since 2020.04.08 〜
+          </h2>
         </div>
 
-       <nav>
-            <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-              
-                <li className="mb-2 tracking-[-.01em]">
-                  <Link href="/about" className="hover:text-yellow-500 trasition-colors">
-                  コンセプト{" "}
-                    <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-                      （あめのみづ鍼灸院について）
-                    </code>
-                  </Link>
-                
-              </li>
-              <li className="tracking-[-.01em]">
-                予約
-              </li>
-              <li className="tracking-[-.01em]">
-                料金
-              </li>
-              <li className="tracking-[-.01em]">
-                アクセス
-              </li>
-              <li className="tracking-[-.01em]">
-                お問合せ
-              </li>
-              <li className="tracking-[-.01em]">
-                私について
-              </li>
-              <li className="tracking-[-.01em]">
-                医術日誌
-              </li>
-            </ol>
-        
-       </nav>
+        <nav>
+          <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
+            <li className="mb-2 tracking-[-.01em]">
+              <Link
+                href="/about"
+                className="hover:text-yellow-500 trasition-colors"
+              >
+                コンセプト{" "}
+                <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
+                  （あめのみづ鍼灸院について）
+                </code>
+              </Link>
+            </li>
+            <li className="tracking-[-.01em]">予約</li>
+            <li className="tracking-[-.01em]">料金</li>
+            <li className="tracking-[-.01em]">アクセス</li>
+            <li className="tracking-[-.01em]">お問合せ</li>
+            <li className="tracking-[-.01em]">私について</li>
+            <li className="tracking-[-.01em]">医術日誌</li>
+          </ol>
+        </nav>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
