@@ -69,7 +69,14 @@ export default function Home() {
                 アクセス
               </Link>
             </li>
-            <li className="tracking-[-.01em]">お問合せ</li>
+            <li className="mb-2 tracking-[-.01em]">
+              <Link
+                href="/contact"
+                className="hover:text-yellow-500 trasition-colors"
+              >
+                お問合せ
+              </Link>
+            </li>
             <li className="tracking-[-.01em]">私について</li>
             <li className="tracking-[-.01em]">医術日誌</li>
           </ol>
