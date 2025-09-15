@@ -43,7 +43,15 @@ export default function Home() {
                 </code>
               </Link>
             </li>
-            <li className="tracking-[-.01em]">予約</li>
+
+            <li className="mb-2 tracking-[-.01em]">
+              <Link
+                href="/reserve"
+                className="hover:text-yellow-500 trasition-colors"
+              >
+                予約
+              </Link>
+            </li>
             <li className="tracking-[-.01em]">料金</li>
             <li className="tracking-[-.01em]">アクセス</li>
             <li className="tracking-[-.01em]">お問合せ</li>
