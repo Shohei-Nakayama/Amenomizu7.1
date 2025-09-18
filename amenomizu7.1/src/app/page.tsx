@@ -1,31 +1,26 @@
+// src/app/page.tsx - 段階的改良版
 import Link from "next/link";
 import Image from "next/image";
+import AmenomizuHeader from "./components/AmenomizuHeader";
 
 export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/IMG_5060.jpg"
-          alt="amenomizu logo"
-          width={480}
-          height={38}
-          priority
-        />
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
-          <h2
+        {/* 改良されたヘッダー部分 */}
+        <div className="text-center mb-8">
+          <h1
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700 mb-2"
             style={{
-              color: "gray",
+              fontFamily:
+                '"Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho Pro", serif',
+              letterSpacing: "0.1em",
             }}
           >
+            あめのみづ鍼灸院
+          </h1>
+
+          <h2 className="text-gray-600 text-sm md:text-base">
             since 2020.04.08 〜
           </h2>
         </div>
@@ -35,7 +30,7 @@ export default function Home() {
             <li className="mb-2 tracking-[-.01em]">
               <Link
                 href="/about"
-                className="hover:text-yellow-500 trasition-colors"
+                className="hover:text-yellow-500 transition-colors"
               >
                 コンセプト{" "}
                 <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
@@ -47,7 +42,7 @@ export default function Home() {
             <li className="mb-2 tracking-[-.01em]">
               <Link
                 href="/reserve"
-                className="hover:text-yellow-500 trasition-colors"
+                className="hover:text-yellow-500 transition-colors"
               >
                 予約
               </Link>
@@ -55,7 +50,7 @@ export default function Home() {
             <li className="mb-2 tracking-[-.01em]">
               <Link
                 href="/fee"
-                className="hover:text-yellow-500 trasition-colors"
+                className="hover:text-yellow-500 transition-colors"
               >
                 料金
               </Link>
@@ -64,7 +59,7 @@ export default function Home() {
             <li className="mb-2 tracking-[-.01em]">
               <Link
                 href="/access"
-                className="hover:text-yellow-500 trasition-colors"
+                className="hover:text-yellow-500 transition-colors"
               >
                 アクセス
               </Link>
@@ -72,7 +67,7 @@ export default function Home() {
             <li className="mb-2 tracking-[-.01em]">
               <Link
                 href="/contact"
-                className="hover:text-yellow-500 trasition-colors"
+                className="hover:text-yellow-500 transition-colors"
               >
                 お問合せ
               </Link>
@@ -80,7 +75,7 @@ export default function Home() {
             <li className="mb-2 tracking-[-.01em]">
               <Link
                 href="/profile"
-                className="hover:text-yellow-500 trasition-colors"
+                className="hover:text-yellow-500 transition-colors"
               >
                 私について
               </Link>
@@ -88,7 +83,7 @@ export default function Home() {
             <li className="mb-2 tracking-[-.01em]">
               <Link
                 href="/writing"
-                className="hover:text-yellow-500 trasition-colors"
+                className="hover:text-yellow-500 transition-colors"
               >
                 医術ノート（最新）
               </Link>
@@ -122,6 +117,7 @@ export default function Home() {
           </a>
         </div>
       </main>
+
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
@@ -139,7 +135,7 @@ export default function Home() {
           Learn
         </a>
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          className="flex items-children gap-2 hover:underline hover:underline-offset-4"
           href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
