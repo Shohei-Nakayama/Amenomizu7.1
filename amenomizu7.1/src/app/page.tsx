@@ -90,7 +90,7 @@ export default function Home() {
                 href="/writing"
                 className="hover:text-yellow-500 trasition-colors"
               >
-                医術日誌
+                医術ノート（最新）
               </Link>
             </li>
           </ol>
