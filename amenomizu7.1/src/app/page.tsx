@@ -1,16 +1,37 @@
-// src/app/page.tsx - 段階的改良版
+// src/app/page.tsx - アニメーション追加版
+"use client"; // この行を追加（React hooksを使用するため）
+
 import Link from "next/link";
 import Image from "next/image";
-import AmenomizuHeader from "./components/AmenomizuHeader";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // ページ読み込み後に少し遅延してアニメーション開始
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        {/* 改良されたヘッダー部分 */}
+        {/* アニメーション付きヘッダー部分 */}
         <div className="text-center mb-8">
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700 mb-2"
+            className={`
+              text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700 mb-2
+              transition-all duration-1000 ease-out
+              ${
+                isVisible
+                  ? "opacity-100 translate-y-0 scale-100"
+                  : "opacity-0 translate-y-8 scale-95"
+              }
+            `}
             style={{
               fontFamily:
                 '"Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho Pro", serif',
@@ -20,12 +41,32 @@ export default function Home() {
             あめのみづ鍼灸院
           </h1>
 
-          <h2 className="text-gray-600 text-sm md:text-base">
+          <h2
+            className={`
+              text-gray-600 text-sm md:text-base
+              transition-all duration-1000 ease-out delay-300
+              ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }
+            `}
+          >
             since 2020.04.08 〜
           </h2>
         </div>
 
-        <nav>
+        {/* ナビゲーションにも軽いアニメーション */}
+        <nav
+          className={`
+            transition-all duration-1000 ease-out delay-500
+            ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }
+          `}
+        >
           <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
             <li className="mb-2 tracking-[-.01em]">
               <Link
@@ -91,7 +132,18 @@ export default function Home() {
           </ol>
         </nav>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+        {/* ボタン類にもアニメーション */}
+        <div
+          className={`
+            flex gap-4 items-center flex-col sm:flex-row
+            transition-all duration-1000 ease-out delay-700
+            ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }
+          `}
+        >
           <a
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
             href="https://amenomizu.webflow.io/"
@@ -135,7 +187,7 @@ export default function Home() {
           Learn
         </a>
         <a
-          className="flex items-children gap-2 hover:underline hover:underline-offset-4"
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
