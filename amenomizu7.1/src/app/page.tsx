@@ -1,4 +1,4 @@
-// src/app/page.tsx - 波状装飾付き完全版
+// src/app/page.tsx - 波状装飾付き完全版（中央揃え修正版）
 "use client";
 
 import Link from "next/link";
@@ -28,7 +28,7 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 p-8 pb-20 gap-16 sm:p-20">
-          <main className="flex flex-col gap-[32px] items-center sm:items-start max-w-4xl mx-auto">
+          <main className="flex flex-col gap-[32px] items-center max-w-4xl mx-auto">
             {/* アニメーション付きヘッダー部分 */}
             <div className="text-center mb-8 w-full">
               <h1
@@ -76,7 +76,7 @@ export default function Home() {
                 }
               `}
             >
-              <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
+              <ol className="font-mono list-inside list-decimal text-sm/6 text-center">
                 <li className="mb-2 tracking-[-.01em]">
                   <Link
                     href="/about"
