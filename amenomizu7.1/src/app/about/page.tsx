@@ -3,10 +3,10 @@ import Image from "next/image";
 
 export default function About() {
   return (
-    <div className="font-sans min-h-screen p-8">
+    <div className="font-sans min-h-screen p-8 text-center">
       <main className="max-w-4xl mx-auto">
         <Image
-          className="dark:invert"
+          className="dark:invert mx-auto"
           src="/IMG_5060.jpg"
           alt="amenomizu logo"
           width={480}
@@ -22,7 +22,7 @@ export default function About() {
           }}
         ></div>
         <br />
-        <h1 className="text-4xl font-bold mb-4">あめのみづ鍼灸院について</h1>
+        <h1 className="text-4xl font-bold mb-4 ">あめのみづ鍼灸院について</h1>
         <br />
         <p className="text-lg mb-8">
           あめのみづ鍼灸院は 看板もありません。 <br />
@@ -32,7 +32,9 @@ export default function About() {
           そこからお身体としての訴えを聞くことを 大事にしています。
           <br />
           <br />
-          できる限り、対処療法ではなく その原因となるものがどこにあるのか。
+          できる限り、対処療法ではなく
+          <br />
+          その原因となるものがどこにあるのか。
           <br />
           日々でどんなことに気をつけたらいいのかなどを
           <br />
@@ -43,6 +45,7 @@ export default function About() {
           とにかく質の良い治療をひとりひとりに行っていきたい。
           <br />
           そう思って日々施術をしています。 <br />
+          <br />
           <br />
           あめのみづ鍼灸院 中山　翔平
         </p>
