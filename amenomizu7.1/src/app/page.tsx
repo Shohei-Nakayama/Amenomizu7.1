@@ -12,7 +12,7 @@ export default function Home() {
 
   useEffect(() => {
     // 初回訪問かどうかをチェック
-    const hasVisited = localStorage.getItem('hasVisitedAmenomizu');
+    const hasVisited = localStorage.getItem("hasVisitedAmenomizu");
 
     if (!hasVisited) {
       // 初回訪問の場合、スプラッシュスクリーンを表示
@@ -29,7 +29,7 @@ export default function Home() {
   const handleSplashComplete = () => {
     setShowSplash(false);
     // 訪問済みフラグを保存
-    localStorage.setItem('hasVisitedAmenomizu', 'true');
+    localStorage.setItem("hasVisitedAmenomizu", "true");
   };
 
   return (
