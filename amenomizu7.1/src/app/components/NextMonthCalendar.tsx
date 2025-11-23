@@ -1,15 +1,25 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import ReservationForm from './ReservationForm';
+import ReservationConfirmation from './ReservationConfirmation';
+import ReservationSuccess from './ReservationSuccess';
+import { SelectedDate, ReservationData } from '../types/reservation';
 
 // 単一月のカレンダーコンポーネント
 interface MonthCalendarProps {
   year: number;
   month: number;
   tomorrow: Date;
+  onDateClick: (year: number, month: number, day: number) => void;
 }
 
-const MonthCalendar: React.FC<MonthCalendarProps> = ({ year, month, tomorrow }) => {
+const MonthCalendar: React.FC<MonthCalendarProps> = ({
+  year,
+  month,
+  tomorrow,
+  onDateClick,
+}) => {
   // カレンダーデータを生成
   const calendarData = useMemo(() => {
     const firstDay = new Date(year, month, 1);
@@ -84,6 +94,11 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({ year, month, tomorrow }) 
               return (
                 <div
                   key={dayIndex}
+                  onClick={() => {
+                    if (day && bookable) {
+                      onDateClick(year, month, day);
+                    }
+                  }}
                   className={`
                     aspect-square flex items-center justify-center
                     rounded-lg transition-colors duration-200
@@ -95,9 +110,7 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({ year, month, tomorrow }) 
                     ${day && !bookable ? 'text-gray-400' : ''}
                   `}
                 >
-                  {day && (
-                    <span className="text-lg font-medium">{day}</span>
-                  )}
+                  {day && <span className="text-lg font-medium">{day}</span>}
                 </div>
               );
             })}
@@ -113,7 +126,11 @@ const NextMonthCalendar: React.FC = () => {
   const today = new Date();
 
   // 明日の日付を計算（時刻を00:00:00にリセット）
-  const tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+  const tomorrow = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() + 1
+  );
 
   // 今月と来月の情報を取得
   const currentYear = today.getFullYear();
@@ -123,14 +140,95 @@ const NextMonthCalendar: React.FC = () => {
   const nextYear = nextMonthDate.getFullYear();
   const nextMonth = nextMonthDate.getMonth();
 
-  return (
-    <div className="w-full max-w-4xl mx-auto space-y-6">
-      {/* 今月のカレンダー */}
-      <MonthCalendar year={currentYear} month={currentMonth} tomorrow={tomorrow} />
+  // 状態管理
+  const [selectedDate, setSelectedDate] = useState<SelectedDate | null>(null);
+  const [reservationData, setReservationData] =
+    useState<ReservationData | null>(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
-      {/* 来月のカレンダー */}
-      <MonthCalendar year={nextYear} month={nextMonth} tomorrow={tomorrow} />
-    </div>
+  // 日付クリック時の処理
+  const handleDateClick = (year: number, month: number, day: number) => {
+    const date = new Date(year, month, day);
+    setSelectedDate({ year, month, day, date });
+  };
+
+  // フォームの確認ボタン押下時
+  const handleFormConfirm = (data: ReservationData) => {
+    setReservationData(data);
+    setShowConfirmation(true);
+  };
+
+  // 確認画面から戻る
+  const handleBackToForm = () => {
+    setShowConfirmation(false);
+  };
+
+  // 予約確定
+  const handleSubmit = () => {
+    // ここで実際のAPI呼び出しなどを行う
+    console.log('予約データ:', reservationData);
+
+    // 成功画面を表示
+    setShowConfirmation(false);
+    setSelectedDate(null);
+    setShowSuccess(true);
+  };
+
+  // フォームを閉じる
+  const handleCloseForm = () => {
+    setSelectedDate(null);
+    setReservationData(null);
+    setShowConfirmation(false);
+  };
+
+  // 成功画面を閉じる
+  const handleCloseSuccess = () => {
+    setShowSuccess(false);
+    setReservationData(null);
+  };
+
+  return (
+    <>
+      <div className="w-full max-w-4xl mx-auto space-y-6">
+        {/* 今月のカレンダー */}
+        <MonthCalendar
+          year={currentYear}
+          month={currentMonth}
+          tomorrow={tomorrow}
+          onDateClick={handleDateClick}
+        />
+
+        {/* 来月のカレンダー */}
+        <MonthCalendar
+          year={nextYear}
+          month={nextMonth}
+          tomorrow={tomorrow}
+          onDateClick={handleDateClick}
+        />
+      </div>
+
+      {/* 予約フォーム */}
+      {selectedDate && !showConfirmation && (
+        <ReservationForm
+          selectedDate={selectedDate}
+          onClose={handleCloseForm}
+          onConfirm={handleFormConfirm}
+        />
+      )}
+
+      {/* 確認画面 */}
+      {showConfirmation && reservationData && (
+        <ReservationConfirmation
+          data={reservationData}
+          onBack={handleBackToForm}
+          onSubmit={handleSubmit}
+        />
+      )}
+
+      {/* 成功画面 */}
+      {showSuccess && <ReservationSuccess onClose={handleCloseSuccess} />}
+    </>
   );
 };
 
