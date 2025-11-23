@@ -7,12 +7,14 @@ interface ReservationConfirmationProps {
   data: ReservationData;
   onBack: () => void;
   onSubmit: () => void;
+  isSubmitting?: boolean;
 }
 
 const ReservationConfirmation: React.FC<ReservationConfirmationProps> = ({
   data,
   onBack,
   onSubmit,
+  isSubmitting = false,
 }) => {
   const formatDate = (date: Date): string => {
     const year = date.getFullYear();
@@ -106,16 +108,22 @@ const ReservationConfirmation: React.FC<ReservationConfirmationProps> = ({
             <button
               type="button"
               onClick={onBack}
-              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold"
+              disabled={isSubmitting}
+              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
               ← 戻る
             </button>
             <button
               type="button"
               onClick={onSubmit}
-              className="flex-1 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-colors font-semibold"
+              disabled={isSubmitting}
+              className={`flex-1 px-6 py-3 rounded-lg transition-colors font-semibold ${
+                isSubmitting
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
+              } text-white`}
             >
-              予約を確定する
+              {isSubmitting ? '送信中...' : '予約を確定する'}
             </button>
           </div>
         </div>

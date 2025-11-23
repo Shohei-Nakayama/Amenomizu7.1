@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import ReservationForm from './ReservationForm';
 import ReservationConfirmation from './ReservationConfirmation';
-import ReservationSuccess from './ReservationSuccess';
 import { SelectedDate, ReservationData } from '../types/reservation';
 
 // 単一月のカレンダーコンポーネント
@@ -122,6 +122,8 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
 };
 
 const NextMonthCalendar: React.FC = () => {
+  const router = useRouter();
+
   // 現在の日付を取得
   const today = new Date();
 
@@ -145,7 +147,7 @@ const NextMonthCalendar: React.FC = () => {
   const [reservationData, setReservationData] =
     useState<ReservationData | null>(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 日付クリック時の処理
   const handleDateClick = (year: number, month: number, day: number) => {
@@ -165,14 +167,54 @@ const NextMonthCalendar: React.FC = () => {
   };
 
   // 予約確定
-  const handleSubmit = () => {
-    // ここで実際のAPI呼び出しなどを行う
-    console.log('予約データ:', reservationData);
+  const handleSubmit = async () => {
+    if (!reservationData) return;
 
-    // 成功画面を表示
-    setShowConfirmation(false);
-    setSelectedDate(null);
-    setShowSuccess(true);
+    setIsSubmitting(true);
+
+    try {
+      // StaticForms APIに送信するデータを準備
+      const formData = new FormData();
+      formData.append('accessKey', 'bf0d0e6d-45eb-4522-9145-eadfd121fe9a');
+      formData.append('subject', '【予約】あめのみづ鍼灸院 予約フォーム');
+
+      // 予約情報を整形してメッセージとして送信
+      const message = `
+【予約情報】
+
+予約日時: ${reservationData.date.getFullYear()}年${reservationData.date.getMonth() + 1}月${reservationData.date.getDate()}日 ${reservationData.time}
+
+【お客様情報】
+お名前: ${reservationData.name}
+メールアドレス: ${reservationData.email}
+電話番号: ${reservationData.phone}
+住所: ${reservationData.address}
+生年月日: ${reservationData.birthdate}
+
+【メッセージ・ご要望】
+${reservationData.message || 'なし'}
+      `;
+
+      formData.append('name', reservationData.name);
+      formData.append('email', reservationData.email);
+      formData.append('message', message);
+
+      const response = await fetch('https://api.staticforms.xyz/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        // 送信成功後、完了ページにリダイレクト
+        router.push('/reserve/success');
+      } else {
+        alert('予約の送信に失敗しました。もう一度お試しください。');
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      alert('予約の送信に失敗しました。もう一度お試しください。');
+      setIsSubmitting(false);
+    }
   };
 
   // フォームを閉じる
@@ -180,12 +222,6 @@ const NextMonthCalendar: React.FC = () => {
     setSelectedDate(null);
     setReservationData(null);
     setShowConfirmation(false);
-  };
-
-  // 成功画面を閉じる
-  const handleCloseSuccess = () => {
-    setShowSuccess(false);
-    setReservationData(null);
   };
 
   return (
@@ -223,11 +259,9 @@ const NextMonthCalendar: React.FC = () => {
           data={reservationData}
           onBack={handleBackToForm}
           onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
         />
       )}
-
-      {/* 成功画面 */}
-      {showSuccess && <ReservationSuccess onClose={handleCloseSuccess} />}
     </>
   );
 };
