@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
 import LoadingWrapper from "./components/LoadingWrapper";
+import CrescentMoon from "./components/CrescentMoon";
 
 const notoSerifJP = Noto_Serif_JP({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${notoSerifJP.className} antialiased`}>
+        <CrescentMoon />
         <LoadingWrapper>{children}</LoadingWrapper>
       </body>
     </html>

@@ -4,9 +4,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import SplashScreen from "./components/SplashScreen";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -16,7 +18,17 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+  };
+
   return (
+    <>
+      {/* スプラッシュスクリーン */}
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+
+      {/* メインコンテンツ - スプラッシュスクリーン終了後のみ表示 */}
+      {!showSplash && (
     <div className="font-sans min-h-screen">
       {/* ヘッダー部分（波状装飾付き） */}
       <div className="relative bg-gradient-to-b from-blue-50 to-white overflow-hidden">
@@ -266,5 +278,7 @@ export default function Home() {
         </footer>
       </div>
     </div>
+      )}
+    </>
   );
 }
