@@ -1,17 +1,14 @@
 import Link from "next/link";
+import PageHeader from "../components/PageHeader";
 
 export default function Contact() {
   return (
-    <div className="font-sans min-h-screen p-8">
-      <main className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4">Contact Page</h1>
-        <p className="text-lg mb-8">これはcontactページです</p>
+    <div className="font-sans min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <PageHeader subtitle="お問い合わせ" />
 
-        <Link href="/">
-          <button className="bg-gray-400 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-            ← ホームに戻る
-          </button>
-        </Link>
+      <main className="max-w-4xl mx-auto px-8 py-12">
+        <h2 className="text-2xl font-semibold mb-4">お問い合わせ</h2>
+        <p className="text-lg mb-8">これはcontactページです</p>
       </main>
     </div>
   );

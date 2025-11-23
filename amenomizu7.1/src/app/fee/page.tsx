@@ -1,27 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import PageHeader from "../components/PageHeader";
 
 export default function FeePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-4 py-6 relative">
-          {/* ホームに戻るボタン */}
-          <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-            <Link href="/">
-              <button className="bg-gray-400 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors">
-                ← ホームに戻る
-              </button>
-            </Link>
-          </div>
-
-          <h1 className="text-3xl font-bold text-gray-800 text-center">
-            あめのみづ鍼灸院
-          </h1>
-          <p className="text-center text-gray-600 mt-2">料金のご案内</p>
-        </div>
-      </header>
+      <PageHeader subtitle="料金のご案内" />
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 py-12">
@@ -32,10 +16,11 @@ export default function FeePage() {
 
           {/* 料金表示 */}
           <section className="mb-8">
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-8 rounded-lg text-center shadow-lg">
-              <h3 className="text-3xl font-bold mb-2">料金</h3>
-              <p className="text-5xl font-bold">¥10,000</p>
-              <p className="text-sm mt-2 opacity-90">（税込）</p>
+            <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+              <p className="text-gray-700 text-lg">
+                <span className="font-semibold">料金：</span>
+                <span className="ml-2">¥10,000（税込）</span>
+              </p>
             </div>
           </section>
 
