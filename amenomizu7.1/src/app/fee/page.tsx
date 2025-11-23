@@ -30,6 +30,15 @@ export default function FeePage() {
             料金について
           </h2>
 
+          {/* 料金表示 */}
+          <section className="mb-8">
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-8 rounded-lg text-center shadow-lg">
+              <h3 className="text-3xl font-bold mb-2">料金</h3>
+              <p className="text-5xl font-bold">¥10,000</p>
+              <p className="text-sm mt-2 opacity-90">（税込）</p>
+            </div>
+          </section>
+
           {/* 施術方針 */}
           <section className="mb-8">
             <h3 className="text-xl font-medium text-gray-700 mb-4 flex items-center">

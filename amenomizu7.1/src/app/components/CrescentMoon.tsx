@@ -13,8 +13,8 @@ const CrescentMoon: React.FC = () => {
     { label: 'アクセス', href: '/access' },
     { label: 'プロフィール', href: '/profile' },
     { label: 'お問い合わせ', href: '/contact' },
-    { label: '執筆', href: '/writing' },
-    { label: 'About', href: '/about' },
+    { label: '日々のこと', href: '/writing' },
+    { label: 'あめのみづとは', href: '/about' },
   ];
 
   return (

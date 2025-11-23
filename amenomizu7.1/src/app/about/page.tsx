@@ -1,10 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
+import PageHeader from "../components/PageHeader";
 
 export default function About() {
   return (
-    <div className="font-sans min-h-screen p-8 text-center">
-      <main className="max-w-4xl mx-auto">
+    <div className="font-sans min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <PageHeader subtitle="あめのみづとは" />
+
+      <main className="max-w-4xl mx-auto px-8 py-12 text-center">
         <Image
           className="dark:invert mx-auto mb-8"
           src="/IMG_5060.jpg"
@@ -13,8 +16,6 @@ export default function About() {
           height={38}
           priority
         />
-
-        <h1 className="text-4xl font-bold mb-8 ">あめのみづ鍼灸院について</h1>
 
         <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-6">あめのみづの方針</h2>
