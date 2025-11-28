@@ -173,7 +173,35 @@ const NextMonthCalendar: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      // StaticForms APIに送信するデータを準備
+      // フォーマットされた日付（YYYY-MM-DD）
+      const dateStr = `${reservationData.date.getFullYear()}-${String(reservationData.date.getMonth() + 1).padStart(2, '0')}-${String(reservationData.date.getDate()).padStart(2, '0')}`;
+
+      // 1. データベースに予約を保存
+      const createResponse = await fetch('/api/reservations/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: dateStr,
+          time: reservationData.time,
+          name: reservationData.name,
+          email: reservationData.email,
+          phone: reservationData.phone,
+          address: reservationData.address,
+          birthdate: reservationData.birthdate,
+          message: reservationData.message,
+        }),
+      });
+
+      if (!createResponse.ok) {
+        const errorData = await createResponse.json();
+        alert(errorData.error || '予約の作成に失敗しました。もう一度お試しください。');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // 2. StaticForms APIに送信するデータを準備
       const formData = new FormData();
       formData.append('accessKey', 'bf0d0e6d-45eb-4522-9145-eadfd121fe9a');
       formData.append('subject', '【予約】あめのみづ鍼灸院 予約フォーム');
@@ -208,8 +236,8 @@ ${reservationData.message || 'なし'}
         // 送信成功後、完了ページにリダイレクト
         router.push('/reserve/success');
       } else {
-        alert('予約の送信に失敗しました。もう一度お試しください。');
-        setIsSubmitting(false);
+        alert('メール送信に失敗しましたが、予約は保存されました。お店から連絡いたします。');
+        router.push('/reserve/success');
       }
     } catch (error) {
       alert('予約の送信に失敗しました。もう一度お試しください。');

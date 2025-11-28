@@ -5,7 +5,7 @@ import PageHeader from "../components/PageHeader";
 export default function FeePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <PageHeader subtitle="料金のご案内" />
+      <PageHeader subtitle="料金、時間等" />
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 py-12">
@@ -97,33 +97,8 @@ export default function FeePage() {
               </div>
             </div>
           </section>
-
-          {/* お問い合わせ */}
-          <section className="text-center mt-12">
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">
-                ご相談・お問い合わせ
-              </h3>
-              <p className="mb-4">お気軽にお問い合わせください</p>
-              <button className="bg-white text-blue-600 px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors">
-                お問い合わせはこちら
-              </button>
-            </div>
-          </section>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 mt-16">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h3 className="text-xl font-semibold mb-2">あめのみづ鍼灸院</h3>
-          <p className="text-gray-300">〒住所情報</p>
-          <p className="text-gray-300">TEL: 電話番号</p>
-          <p className="text-gray-400 text-sm mt-4">
-            © 2024 あめのみづ鍼灸院. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
