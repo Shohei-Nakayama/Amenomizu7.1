@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ReservationData, SelectedDate } from '../types/reservation';
 import { getAvailableTimeSlots, isContactRequired } from '../utils/timeSlots';
 
@@ -18,8 +18,15 @@ const ReservationForm: React.FC<ReservationFormProps> = ({
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const baseTimeSlots = getAvailableTimeSlots(selectedDate.date);
-  const needsContact = isContactRequired(baseTimeSlots);
+  // useMemoを使用して安定した値を保持
+  const baseTimeSlots = useMemo(
+    () => getAvailableTimeSlots(selectedDate.date),
+    [selectedDate.date]
+  );
+  const needsContact = useMemo(
+    () => isContactRequired(baseTimeSlots),
+    [baseTimeSlots]
+  );
 
   const [formData, setFormData] = useState({
     name: '',
