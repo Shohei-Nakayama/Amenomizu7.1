@@ -14,9 +14,15 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const reservations = await getDayReservations(date);
+    const rawReservations = await getDayReservations(date);
 
-    return NextResponse.json({ date, reservations });
+    // データをフロントエンドが期待する形式に変換
+    const formattedReservations: Record<string, { status: string }> = {};
+    Object.keys(rawReservations).forEach((time) => {
+      formattedReservations[time] = { status: rawReservations[time] };
+    });
+
+    return NextResponse.json({ date, reservations: formattedReservations });
   } catch (error) {
     console.error('予約状況の取得エラー:', error);
     return NextResponse.json(

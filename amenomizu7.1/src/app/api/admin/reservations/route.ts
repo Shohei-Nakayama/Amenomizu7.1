@@ -16,9 +16,18 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: '認証が無効です' }, { status: 403 });
     }
 
-    const data = await getAllReservations();
+    const rawData = await getAllReservations();
 
-    return NextResponse.json(data);
+    // データを管理画面が期待する形式に変換
+    const formattedData: Record<string, Record<string, { status: string }>> = {};
+    Object.keys(rawData).forEach((date) => {
+      formattedData[date] = {};
+      Object.keys(rawData[date]).forEach((time) => {
+        formattedData[date][time] = { status: rawData[date][time] };
+      });
+    });
+
+    return NextResponse.json({ reservations: formattedData });
   } catch (error) {
     console.error('予約データ取得エラー:', error);
     return NextResponse.json(

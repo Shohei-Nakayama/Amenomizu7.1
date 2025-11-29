@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createReservation } from '@/app/lib/reservationManager';
+import { toggleAvailability, getReservationStatus } from '@/app/lib/reservationManager';
 
-// 予約を作成
+// 予約を作成（予約データは保存せず、時間をblockedにするのみ）
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -15,17 +15,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await createReservation(date, time, {
-      name,
-      email,
-      phone,
-      address,
-      birthdate,
-      message,
-    });
+    // 既に予約されているかチェック
+    const currentStatus = await getReservationStatus(date, time);
+    if (currentStatus === 'blocked') {
+      return NextResponse.json(
+        { error: 'この時間は既に予約されているか、予約不可です' },
+        { status: 409 }
+      );
+    }
+
+    // 予約を作成（時間をblockedにする）
+    const result = await toggleAvailability(date, time, 'blocked');
 
     if (!result.success) {
-      return NextResponse.json({ error: result.error }, { status: 409 });
+      return NextResponse.json({ error: result.error }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
