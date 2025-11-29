@@ -87,6 +87,8 @@ export default function AdminReservations() {
 
     const newStatus = currentStatus === 'blocked' ? 'available' : 'blocked';
 
+    console.log('予約状況変更開始:', { date, currentStatus, newStatus });
+
     try {
       const response = await fetch('/api/admin/toggle-availability', {
         method: 'POST',
@@ -101,15 +103,21 @@ export default function AdminReservations() {
         }),
       });
 
+      console.log('APIレスポンスステータス:', response.status);
+
       if (response.ok) {
+        const result = await response.json();
+        console.log('API成功:', result);
         // データを再読み込み
         await loadReservations(token);
       } else {
-        alert('予約状況の変更に失敗しました。');
+        const errorData = await response.json();
+        console.error('APIエラー:', errorData);
+        alert(`予約状況の変更に失敗しました。エラー: ${errorData.error || '不明'}`);
       }
     } catch (error) {
       console.error('予約状況変更エラー:', error);
-      alert('予約状況の変更に失敗しました。');
+      alert(`予約状況の変更に失敗しました。エラー: ${error}`);
     }
   };
 
