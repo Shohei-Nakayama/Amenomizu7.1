@@ -1,4 +1,4 @@
-import { isHoliday, isSunday } from './holidays';
+import { isHoliday, isWeekend } from './holidays';
 
 // 予約可能な時間帯を取得
 export const getAvailableTimeSlots = (date: Date): string[] => {
@@ -17,8 +17,8 @@ export const getAvailableTimeSlots = (date: Date): string[] => {
     date.getDate() >= 27 &&
     date.getDate() <= 31;
 
-  // 日曜日、祝日、明日、年末の場合は「お問合せください」
-  if (isSunday(date) || isHoliday(date) || isTomorrow || isYearEnd) {
+  // 土日、祝日、明日、年末の場合は「お問合せください」
+  if (isWeekend(date) || isHoliday(date) || isTomorrow || isYearEnd) {
     return ['お問合せください'];
   }
 

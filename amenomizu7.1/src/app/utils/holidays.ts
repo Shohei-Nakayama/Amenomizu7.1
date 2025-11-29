@@ -38,6 +38,15 @@ export const isSunday = (date: Date): boolean => {
   return date.getDay() === 0;
 };
 
+export const isSaturday = (date: Date): boolean => {
+  return date.getDay() === 6;
+};
+
+export const isWeekend = (date: Date): boolean => {
+  const day = date.getDay();
+  return day === 0 || day === 6; // 日曜日または土曜日
+};
+
 export const isWeekday = (date: Date): boolean => {
   const day = date.getDay();
   return day >= 1 && day <= 5;
