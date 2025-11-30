@@ -8,13 +8,13 @@ const CrescentMoon: React.FC = () => {
 
   const menuItems = [
     { label: 'ホーム', href: '/' },
+    { label: 'あめのみづとは', href: '/about' },
     { label: 'ご予約', href: '/reserve' },
     { label: '料金', href: '/fee' },
     { label: 'アクセス', href: '/access' },
     { label: 'プロフィール', href: '/profile' },
     { label: 'お問い合わせ', href: '/contact' },
     { label: '日々のこと', href: '/writing' },
-    { label: 'あめのみづとは', href: '/about' },
   ];
 
   return (
