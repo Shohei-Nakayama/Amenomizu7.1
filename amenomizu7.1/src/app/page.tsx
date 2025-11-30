@@ -104,9 +104,7 @@ export default function Home() {
                         href="/about"
                         className="hover:text-yellow-500 transition-colors"
                       >
-                        <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-                          あめのみづ鍼灸院について
-                        </code>
+                        あめのみづ鍼灸院について
                       </Link>
                     </li>
 
@@ -167,18 +165,15 @@ export default function Home() {
               `}
                 >
                   <a
-                    className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
+                    className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-gray-500 text-white gap-2 hover:bg-gray-600 font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
                     href="https://amenomizu.webflow.io/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Image
-                      className="dark:invert"
-                      src="/vercel.svg"
-                      alt="Vercel logomark"
-                      width={20}
-                      height={20}
-                    />
+                    <svg width="20" height="20" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="25" cy="25" r="15" fill="#D1D5DB" opacity="0.8" />
+                      <circle cx="30" cy="25" r="12" fill="white" />
+                    </svg>
                     in English
                   </a>
                   <a
