@@ -13,7 +13,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   showBackButton = true
 }) => {
   return (
-    <header className="bg-white shadow-sm border-b">
+    <header className="bg-white shadow-sm border-b pt-16">
       <div className="max-w-4xl mx-auto px-4 py-6 relative">
         {/* ホームに戻るボタン */}
         {showBackButton && (

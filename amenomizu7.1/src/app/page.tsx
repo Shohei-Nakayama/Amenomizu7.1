@@ -49,7 +49,7 @@ export default function Home() {
               <div className="absolute top-8 right-1/3 w-20 h-10 bg-blue-200 rounded-full blur-lg"></div>
             </div>
 
-            <div className="relative z-10 p-8 pb-20 gap-16 sm:p-20">
+            <div className="relative z-10 pt-20 px-8 pb-20 gap-16 sm:p-20">
               <main className="flex flex-col gap-[32px] items-center max-w-4xl mx-auto">
                 {/* アニメーション付きヘッダー部分 */}
                 <div className="text-center mb-8 w-full">
