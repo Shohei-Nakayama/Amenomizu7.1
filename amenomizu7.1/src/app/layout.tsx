@@ -5,6 +5,8 @@ import LoadingWrapper from "./components/LoadingWrapper";
 import CrescentMoon from "./components/CrescentMoon";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import StructuredData from "./components/StructuredData";
+import Footer from "./components/Footer";
+import CookieConsent from "./components/CookieConsent";
 
 const notoSerifJP = Noto_Serif_JP({
   subsets: ["latin"],
@@ -75,11 +77,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${notoSerifJP.className} antialiased`}>
+      <body className={`${notoSerifJP.className} antialiased flex flex-col min-h-screen`}>
         <GoogleAnalytics />
         <StructuredData />
         <CrescentMoon />
         <LoadingWrapper>{children}</LoadingWrapper>
+        <Footer />
+        <CookieConsent />
       </body>
     </html>
   );
