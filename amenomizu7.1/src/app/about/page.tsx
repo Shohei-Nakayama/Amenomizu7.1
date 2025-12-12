@@ -6,29 +6,45 @@ export default function About() {
       <PageHeader subtitle="あめのみづとは" />
 
       <main className="max-w-4xl mx-auto px-8 py-12 text-center">
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6">
+        <section className="mb-16">
+          <h2 className="text-2xl font-semibold mb-8">
             あめのみづ鍼灸院について
           </h2>
-          <p className="text-lg mb-4">
-            あめのみづ鍼灸院は 看板もありません。 特に広告も出していません。
+          <p className="text-lg mb-6 leading-relaxed">
+            あめのみづ鍼灸院は
+            <br />
+            看板もありません。
           </p>
-          <p className="text-lg mb-6">
-            ただ、いらっしゃる方のお話をお伺いし、そこからお身体としての訴えを聞くことを
+          <p className="text-lg mb-8 leading-relaxed">
+            特に広告も出していません。
+          </p>
+          <p className="text-lg leading-relaxed">
+            ただ、いらっしゃる方のお話をお伺いし、
+            <br />
+            そこからお身体としての訴えを聞くことを
+            <br />
             大事にしています。
           </p>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6">治療へのアプローチ</h2>
-          <p className="text-lg mb-4">
-            できる限り、対症療法ではなく その原因となるものがどこにあるのか。
+        <section className="mb-16">
+          <h2 className="text-2xl font-semibold mb-8">治療へのアプローチ</h2>
+          <p className="text-lg mb-6 leading-relaxed">
+            できる限り、対症療法ではなく
+            <br />
+            その原因となるものがどこにあるのか。
           </p>
-          <p className="text-lg mb-4">
-            日々でどんなことに気をつけたらいいのかなどを包括的な視点から見て、ひとりひとりに最適な形の治療をしていきたい。
+          <p className="text-lg mb-6 leading-relaxed">
+            日々でどんなことに気をつけたらいいのかなどを
+            <br />
+            包括的な視点から見て、
+            <br />
+            ひとりひとりに最適な形の治療をしていきたい。
           </p>
-          <p className="text-lg mb-4">
-            とにかく質の良い治療をひとりひとりに行っていきたい。そう思って日々施術をしています。
+          <p className="text-lg leading-relaxed">
+            とにかく質の良い治療をひとりひとりに行っていきたい。
+            <br />
+            そう思って日々施術をしています。
           </p>
         </section>
 
