@@ -18,44 +18,19 @@ const CrescentMoon: React.FC = () => {
 
   return (
     <>
-      {/* 三日月とハンバーガーメニューアイコン */}
-      <div className="fixed top-6 right-6 z-50 flex items-center gap-3">
-        {/* ハンバーガーメニューアイコン */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="flex flex-col justify-center items-center w-10 h-10 rounded-lg bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-200"
-          aria-label="メニュー"
-        >
-          <span
-            className={`block w-5 h-0.5 transition-all duration-300 ${
-              isMenuOpen ? 'rotate-45 translate-y-1.5' : ''
-            }`}
-            style={{ backgroundColor: '#F4D03F' }}
-          />
-          <span
-            className={`block w-5 h-0.5 mt-1.5 transition-all duration-300 ${
-              isMenuOpen ? 'opacity-0' : ''
-            }`}
-            style={{ backgroundColor: '#F4D03F' }}
-          />
-          <span
-            className={`block w-5 h-0.5 mt-1.5 transition-all duration-300 ${
-              isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
-            }`}
-            style={{ backgroundColor: '#F4D03F' }}
-          />
-        </button>
-
-        {/* 三日月 */}
-        <div>
-          <svg width="35" height="35" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-            {/* 外側の大きな円（満月） */}
-            <circle cx="25" cy="25" r="15" fill="#F4D03F" opacity="0.8" />
-            {/* 内側の小さな円（切り取る部分） */}
-            <circle cx="30" cy="25" r="12" fill="white" />
-          </svg>
-        </div>
-      </div>
+      {/* 三日月メニューボタン */}
+      <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className="fixed top-6 right-6 z-50 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white hover:scale-110 transition-all duration-200"
+        aria-label="メニュー"
+      >
+        <svg width="35" height="35" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          {/* 外側の大きな円（満月） */}
+          <circle cx="25" cy="25" r="15" fill="#F4D03F" opacity="0.8" />
+          {/* 内側の小さな円（切り取る部分） */}
+          <circle cx="30" cy="25" r="12" fill="white" />
+        </svg>
+      </button>
 
       {/* メニューパネル */}
       {isMenuOpen && (
