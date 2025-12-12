@@ -150,7 +150,7 @@ export default function Profile() {
             <ul className="space-y-2 text-gray-700">
               <li className="flex items-start">
                 <span className="text-blue-500 mr-2">•</span>
-                <span>鍼灸師</span>
+                <span>鍼灸師（はり師・きゅう師）</span>
               </li>
               <li className="flex items-start">
                 <span className="text-blue-500 mr-2">•</span>
