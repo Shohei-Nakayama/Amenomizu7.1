@@ -9,9 +9,14 @@ export default function Profile() {
       <main className="max-w-4xl mx-auto px-8 py-12">
         {/* タイトル */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center border-b-2 border-blue-200 pb-4">
-            あめのみづ　中山　翔平
-          </h2>
+          <div className="text-center border-b-2 border-blue-200 pb-4">
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">
+              あめのみづ
+            </h2>
+            <p className="text-2xl font-bold text-gray-800">
+              中山　翔平
+            </p>
+          </div>
         </div>
 
         {/* プロフィール写真1（ウサギ） */}
