@@ -8,7 +8,7 @@ export default function StructuredData() {
     name: 'あめのみづ鍼灸院',
     image: 'https://www.amenomizu.jp/image/exterior.jpg',
     url: 'https://www.amenomizu.jp',
-    telephone: '+81-80-3637-7265',
+    telephone: '+81-50-3637-7265',
     priceRange: '¥10,000',
     address: {
       '@type': 'PostalAddress',

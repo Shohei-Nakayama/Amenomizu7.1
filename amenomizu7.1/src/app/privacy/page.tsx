@@ -173,8 +173,8 @@ export default function Privacy() {
             <div className="bg-blue-50 p-6 rounded-lg">
               <p className="text-gray-700 font-semibold mb-2">あめのみづ鍼灸院</p>
               <p className="text-gray-700">〒252-0001</p>
-              <p className="text-gray-700">神奈川県座間市相模が丘1-23-28</p>
-              <p className="text-gray-700 mt-2">電話：046-240-7282</p>
+              <p className="text-gray-700">神奈川県座間市相模が丘２−２９−２　グレイスメゾン城所７０３</p>
+              <p className="text-gray-700 mt-2">電話：050-3637-7265</p>
               <p className="text-gray-700">
                 お問い合わせフォーム：
                 <a href="/contact" className="text-blue-600 hover:text-blue-800 underline ml-1">

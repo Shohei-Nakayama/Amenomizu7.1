@@ -143,10 +143,10 @@ export default function Contact() {
               </h3>
               <p className="text-gray-700 mb-2">
                 <a
-                  href="tel:08036377265"
+                  href="tel:05036377265"
                   className="text-blue-600 hover:underline font-medium"
                 >
-                  080-3637-7265
+                  050-3637-7265
                 </a>
               </p>
               <p className="text-sm text-gray-600 leading-relaxed">

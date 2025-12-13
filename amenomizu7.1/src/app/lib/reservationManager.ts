@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabaseAdmin } from './supabase';
 
 // 予約状態の型定義
 export type ReservationStatus = 'available' | 'blocked';
@@ -17,7 +17,7 @@ export async function getReservationStatus(
   date: string,
   time: string
 ): Promise<ReservationStatus> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('reservation_blocks')
     .select('status')
     .eq('date', date)
@@ -33,7 +33,7 @@ export async function getReservationStatus(
 
 // 特定の日の全ての予約状況を取得
 export async function getDayReservations(date: string): Promise<Record<string, ReservationStatus>> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('reservation_blocks')
     .select('time, status')
     .eq('date', date);
@@ -58,7 +58,7 @@ export async function toggleAvailability(
 ): Promise<{ success: boolean; error?: string }> {
   if (newStatus === 'available') {
     // availableの場合はレコードを削除
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('reservation_blocks')
       .delete()
       .eq('date', date)
@@ -70,7 +70,7 @@ export async function toggleAvailability(
     }
   } else if (newStatus === 'blocked') {
     // blockedの場合はupsert（存在すれば更新、なければ挿入）
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('reservation_blocks')
       .upsert(
         {
@@ -94,7 +94,7 @@ export async function toggleAvailability(
 
 // 全予約データを取得（管理者用）
 export async function getAllReservations(): Promise<Record<string, Record<string, ReservationStatus>>> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('reservation_blocks')
     .select('date, time, status')
     .order('date', { ascending: true });
