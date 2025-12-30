@@ -47,10 +47,30 @@ const AmenomizuHeader: React.FC = () => {
             あめのみづ鍼灸院
           </h1>
 
+          {/* サブタイトル */}
+          <p
+            className={`
+              mt-3 text-gray-500 text-xs md:text-sm
+              transition-all duration-1000 ease-out delay-400
+              ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-2"
+              }
+            `}
+            style={{
+              fontFamily:
+                '"Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho Pro", serif',
+              letterSpacing: "0.05em",
+            }}
+          >
+            脚色も看板もないシンプルな鍼灸院
+          </p>
+
           {/* サブテキスト */}
           <p
             className={`
-              mt-4 text-gray-600 text-sm md:text-base
+              mt-2 text-gray-600 text-sm md:text-base
               transition-all duration-1000 ease-out delay-500
               ${
                 isVisible

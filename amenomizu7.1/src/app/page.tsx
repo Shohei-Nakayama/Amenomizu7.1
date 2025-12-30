@@ -72,6 +72,25 @@ export default function Home() {
                     あめのみづ鍼灸院
                   </h1>
 
+                  <p
+                    className={`
+                  text-gray-500 text-xs md:text-sm mt-3 mb-2
+                  transition-all duration-1000 ease-out delay-200
+                  ${
+                    isVisible
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  }
+                `}
+                    style={{
+                      fontFamily:
+                        '"Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho Pro", serif',
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    脚色も看板もないシンプルな鍼灸院
+                  </p>
+
                   <h2
                     className={`
                   text-gray-600 text-sm md:text-base
