@@ -7,13 +7,14 @@ const CrescentMoon: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
-    { label: 'ホーム', href: '/' },
-    { label: 'あめのみづとは', href: '/about' },
-    { label: 'ご予約', href: '/reserve' },
-    { label: '料金', href: '/fee' },
-    { label: 'アクセス', href: '/access' },
-    { label: 'プロフィール', href: '/profile' },
-    { label: 'お問い合わせ', href: '/contact' },
+    { label: 'ホーム', href: '/', external: false },
+    { label: 'あめのみづとは', href: '/about', external: false },
+    { label: 'ご予約', href: '/reserve', external: false },
+    { label: '料金', href: '/fee', external: false },
+    { label: 'アクセス', href: '/access', external: false },
+    { label: 'プロフィール', href: '/profile', external: false },
+    { label: 'お問い合わせ', href: '/contact', external: false },
+    { label: '日々のこと', href: 'https://whitesheep.amenomizu.jp', external: true },
   ];
 
   return (
@@ -45,19 +46,37 @@ const CrescentMoon: React.FC = () => {
           <div className="fixed top-20 right-6 z-50 bg-white rounded-lg shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-5 duration-300">
             <nav className="py-4">
               {menuItems.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block px-8 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
-                  style={{
-                    fontFamily:
-                      '"Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho Pro", serif',
-                    letterSpacing: '0.05em',
-                  }}
-                >
-                  {item.label}
-                </Link>
+                item.external ? (
+                  <a
+                    key={index}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-8 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                    style={{
+                      fontFamily:
+                        '"Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho Pro", serif',
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={index}
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-8 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                    style={{
+                      fontFamily:
+                        '"Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho Pro", serif',
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                )
               ))}
             </nav>
           </div>
