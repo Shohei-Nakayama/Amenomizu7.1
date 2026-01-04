@@ -49,11 +49,13 @@ export default function FeePage() {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="bg-green-50 p-6 rounded-lg">
                 <h4 className="font-semibold text-gray-800 mb-2">通常施術</h4>
-                <p className="text-gray-700">1時間〜1時間半程度</p>
+                <p className="text-gray-700">問診等も含め、約1時間程度</p>
               </div>
               <div className="bg-orange-50 p-6 rounded-lg">
                 <h4 className="font-semibold text-gray-800 mb-2">訪問治療</h4>
-                <p className="text-gray-700">1時間以内</p>
+                <p className="text-gray-700">
+                  ※原則は行っておりませんが、必要な場合はご相談ください。
+                </p>
               </div>
             </div>
           </section>
