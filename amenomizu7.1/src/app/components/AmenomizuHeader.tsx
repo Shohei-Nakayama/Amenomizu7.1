@@ -64,7 +64,7 @@ const AmenomizuHeader: React.FC = () => {
               letterSpacing: "0.05em",
             }}
           >
-            脚色も看板もないシンプルな鍼灸院
+            刺さない経絡治療と、自力で治す情報を渡す鍼灸院
           </p>
 
           {/* サブテキスト */}
