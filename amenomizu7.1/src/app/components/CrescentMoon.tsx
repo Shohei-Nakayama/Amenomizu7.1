@@ -14,7 +14,7 @@ const CrescentMoon: React.FC = () => {
     { label: 'アクセス', href: '/access', external: false },
     { label: 'プロフィール', href: '/profile', external: false },
     { label: 'お問い合わせ', href: '/contact', external: false },
-    { label: '日々のこと', href: 'https://whitesheep.amenomizu.jp', external: true },
+    { label: '日々のこと', href: '/blog', external: false },
   ];
 
   return (
