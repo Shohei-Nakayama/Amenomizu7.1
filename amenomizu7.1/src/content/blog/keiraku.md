@@ -2,7 +2,10 @@
 title: 経絡
 date: 2026-03-21
 excerpt: 経絡は、体内の細胞や細菌、細胞外基質などの「会話」。目には見えないけれど、厳然としてその時間は存在する。
+image: /images/blog/keiraku.jpeg
 ---
+
+![経絡](/images/blog/keiraku.jpeg)
 
 経絡は、体内の細胞、細菌、細胞外基質等々の会話
 
