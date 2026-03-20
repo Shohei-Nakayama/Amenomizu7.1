@@ -23,9 +23,9 @@ export default function BlogIndex() {
                 key={post.slug}
                 className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
               >
-                <Link href={`/blog/${post.slug}`} className="block">
+                <Link href={`/blog/${post.slug}`} className="flex">
                   {post.image && (
-                    <div className="relative w-full h-64">
+                    <div className="w-48 h-48 flex-shrink-0">
                       <img
                         src={post.image}
                         alt={post.title}
@@ -33,7 +33,7 @@ export default function BlogIndex() {
                       />
                     </div>
                   )}
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col justify-center">
                     <time className="text-sm text-gray-500 mb-2 block">
                       {post.date}
                     </time>
