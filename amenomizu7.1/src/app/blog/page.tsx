@@ -17,15 +17,15 @@ export default function BlogIndex() {
             </p>
           </div>
         ) : (
-          <div className="space-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {posts.map((post) => (
               <article
                 key={post.slug}
                 className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
               >
-                <Link href={`/blog/${post.slug}`} className="flex">
+                <Link href={`/blog/${post.slug}`} className="block">
                   {post.image && (
-                    <div className="w-48 h-48 flex-shrink-0">
+                    <div className="w-full h-52">
                       <img
                         src={post.image}
                         alt={post.title}
@@ -33,18 +33,13 @@ export default function BlogIndex() {
                       />
                     </div>
                   )}
-                  <div className="p-6 flex flex-col justify-center">
-                    <time className="text-sm text-gray-500 mb-2 block">
+                  <div className="px-5 py-4">
+                    <time className="text-xs text-gray-400 block mb-1">
                       {post.date}
                     </time>
-                    <h2 className="text-2xl font-semibold mb-3 text-gray-900 hover:text-blue-600 transition-colors">
+                    <h2 className="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
                       {post.title}
                     </h2>
-                    {post.excerpt && (
-                      <p className="text-gray-600 leading-relaxed">
-                        {post.excerpt}
-                      </p>
-                    )}
                   </div>
                 </Link>
               </article>
