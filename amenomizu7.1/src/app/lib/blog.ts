@@ -20,6 +20,7 @@ export interface BlogPostMetadata {
   date: string;
   excerpt?: string;
   image?: string;
+  mtime?: number;
 }
 
 // すべてのブログ記事のメタデータを取得
@@ -63,7 +64,7 @@ export function getAllPosts(): BlogPostMetadata[] {
   // 日付でソート（新しい順）、同じ日付はファイル更新日時で並べる
   return allPostsData.sort((a, b) => {
     if (a.date !== b.date) return a.date < b.date ? 1 : -1;
-    return (b as any).mtime - (a as any).mtime;
+    return (b.mtime ?? 0) - (a.mtime ?? 0);
   });
 }
 
