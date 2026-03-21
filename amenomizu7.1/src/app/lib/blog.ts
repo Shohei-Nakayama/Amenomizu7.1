@@ -48,22 +48,22 @@ export function getAllPosts(): BlogPostMetadata[] {
         dateString = new Date().toISOString().split('T')[0];
       }
 
+      const mtime = fs.statSync(fullPath).mtime.getTime();
+
       return {
         slug,
         title: data.title || slug,
         date: dateString,
         excerpt: data.excerpt || '',
         image: data.image || '',
+        mtime,
       };
     });
 
-  // 日付でソート（新しい順）
+  // 日付でソート（新しい順）、同じ日付はファイル更新日時で並べる
   return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
-    }
+    if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+    return (b as any).mtime - (a as any).mtime;
   });
 }
 
