@@ -29,7 +29,7 @@ export default async function BlogPost({ params }: PageProps) {
       <main className="max-w-4xl mx-auto px-8 py-12">
         <article className="bg-white rounded-lg shadow-md p-8 mb-8">
           {post.image && (
-            <div className="relative w-full h-96 mb-8 -mx-8 -mt-8">
+            <div className="relative w-[calc(100%+4rem)] h-96 mb-8 -mx-8 -mt-8">
               <img
                 src={post.image}
                 alt={post.title}
