@@ -33,11 +33,11 @@ export default function BlogIndex() {
                       />
                     </div>
                   )}
-                  <div className="px-6 flex flex-col justify-center">
+                  <div className="px-6 flex flex-col justify-center min-w-0">
                     <time className="text-xs text-gray-400 block mb-2">
                       {post.date}
                     </time>
-                    <h2 className="text-xl font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+                    <h2 className="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors break-words">
                       {post.title}
                     </h2>
                   </div>
