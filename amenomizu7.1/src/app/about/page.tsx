@@ -30,6 +30,9 @@ export default function About() {
         <section className="mb-16">
           <h2 className="text-2xl font-semibold mb-8">治療へのアプローチ</h2>
           <p className="text-lg mb-6 leading-relaxed">
+            基本的に、鍉鍼（ていしん）という棒のような刺さない鍼と、手で治療を行なっています。
+          </p>
+          <p className="text-lg mb-6 leading-relaxed">
             できる限り、対症療法ではなく
             <br />
             その原因となるものがどこにあるのか。
