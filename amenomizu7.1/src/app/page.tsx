@@ -88,7 +88,7 @@ export default function Home() {
                       letterSpacing: "0.05em",
                     }}
                   >
-                    刺さない経絡治療と、自力で治す情報を渡す鍼灸院
+                    看板も出していない小さな鍼灸院
                   </p>
 
                   <h2
