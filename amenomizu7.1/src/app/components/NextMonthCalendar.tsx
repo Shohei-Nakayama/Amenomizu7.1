@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import ReservationForm from './ReservationForm';
 import ReservationConfirmation from './ReservationConfirmation';
 import { SelectedDate, ReservationData } from '../types/reservation';
+import { isHoliday } from '../utils/holidays';
 
 // 単一月のカレンダーコンポーネント
 interface MonthCalendarProps {
@@ -58,6 +59,12 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
     return targetDate >= tomorrow;
   };
 
+  // 日付が祝日かどうかをチェック
+  const isHolidayDay = (day: number | null): boolean => {
+    if (!day) return false;
+    return isHoliday(new Date(year, month, day));
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
       {/* ヘッダー */}
@@ -91,6 +98,7 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
           <div key={weekIndex} className="grid grid-cols-7 gap-2 mb-2">
             {week.map((day, dayIndex) => {
               const bookable = isBookable(day);
+              const holiday = isHolidayDay(day);
               return (
                 <div
                   key={dayIndex}
@@ -104,9 +112,10 @@ const MonthCalendar: React.FC<MonthCalendarProps> = ({
                     rounded-lg transition-colors duration-200
                     ${day && bookable ? 'hover:bg-blue-100 cursor-pointer' : ''}
                     ${day && !bookable ? 'bg-gray-100 cursor-not-allowed' : ''}
-                    ${day && bookable && dayIndex === 0 ? 'text-red-500' : ''}
-                    ${day && bookable && dayIndex === 6 ? 'text-blue-500' : ''}
-                    ${day && bookable && dayIndex !== 0 && dayIndex !== 6 ? 'text-gray-700' : ''}
+                    ${day && bookable && holiday ? 'text-red-500' : ''}
+                    ${day && bookable && !holiday && dayIndex === 0 ? 'text-red-500' : ''}
+                    ${day && bookable && !holiday && dayIndex === 6 ? 'text-blue-500' : ''}
+                    ${day && bookable && !holiday && dayIndex !== 0 && dayIndex !== 6 ? 'text-gray-700' : ''}
                     ${day && !bookable ? 'text-gray-400' : ''}
                   `}
                 >
