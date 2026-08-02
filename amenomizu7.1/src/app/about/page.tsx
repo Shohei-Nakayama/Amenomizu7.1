@@ -5,7 +5,7 @@ export default function About() {
     <div className="font-sans min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <PageHeader subtitle="あめのみづとは" />
 
-      <main className="max-w-4xl mx-auto px-8 py-12 text-center">
+      <main className="max-w-4xl mx-auto px-8 py-12 text-left">
         <section className="mb-16">
           <h2 className="text-2xl font-semibold mb-8">
             あめのみづ鍼灸院について
