@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PageHeader from '../../components/PageHeader';
+import { getBaseTimeSlots } from '../../utils/timeSlots';
 
 interface TimeSlotData {
   status: 'available' | 'reserved' | 'blocked';
@@ -79,7 +80,7 @@ export default function AdminReservations() {
   };
 
   // 予約可/不可を切り替え
-  const toggleAvailability = async (date: string, currentStatus: string) => {
+  const toggleAvailability = async (date: string, time: string, currentStatus: string) => {
     if (currentStatus === 'reserved') {
       alert('予約済みの時間は変更できません。');
       return;
@@ -87,7 +88,7 @@ export default function AdminReservations() {
 
     const newStatus = currentStatus === 'blocked' ? 'available' : 'blocked';
 
-    console.log('予約状況変更開始:', { date, currentStatus, newStatus });
+    console.log('予約状況変更開始:', { date, time, currentStatus, newStatus });
 
     try {
       const response = await fetch('/api/admin/toggle-availability', {
@@ -98,7 +99,7 @@ export default function AdminReservations() {
         },
         body: JSON.stringify({
           date,
-          time: '19:00',
+          time,
           status: newStatus,
         }),
       });
@@ -121,6 +122,8 @@ export default function AdminReservations() {
     }
   };
 
+  const weekDayLabels = ['日', '月', '火', '水', '木', '金', '土'];
+
   // カレンダーデータを生成
   const generateCalendarDays = (year: number, month: number) => {
     const firstDay = new Date(year, month, 1);
@@ -133,14 +136,12 @@ export default function AdminReservations() {
       const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       const dayOfWeek = date.getDay();
 
-      // 平日（月〜金）のみを含める
-      if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-        days.push({
-          day,
-          date: dateStr,
-          dayOfWeek,
-        });
-      }
+      days.push({
+        day,
+        date: dateStr,
+        dayOfWeek,
+        slots: getBaseTimeSlots(date),
+      });
     }
 
     return days;
@@ -159,12 +160,12 @@ export default function AdminReservations() {
   const nextMonthDays = generateCalendarDays(nextYear, nextMonth);
 
   // 予約状況を取得
-  const getReservationStatus = (dateStr: string): TimeSlotData => {
+  const getReservationStatus = (dateStr: string, time: string): TimeSlotData => {
     const dayData = reservationsData.reservations[dateStr];
-    if (!dayData || !dayData['19:00']) {
+    if (!dayData || !dayData[time]) {
       return { status: 'available' };
     }
-    return dayData['19:00'];
+    return dayData[time];
   };
 
   // ステータスの表示
@@ -222,7 +223,7 @@ export default function AdminReservations() {
 
       <main className="max-w-6xl mx-auto px-8 py-12">
         <div className="mb-6 flex justify-between items-center">
-          <h2 className="text-2xl font-bold">平日19:00の予約状況</h2>
+          <h2 className="text-2xl font-bold">予約状況</h2>
           <button
             onClick={() => loadReservations(token)}
             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
@@ -243,56 +244,64 @@ export default function AdminReservations() {
                 {currentYear}年{currentMonth + 1}月
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {currentMonthDays.map((dayInfo) => {
-                  const statusData = getReservationStatus(dayInfo.date);
-                  const { text, color } = getStatusDisplay(statusData.status);
+                {currentMonthDays.map((dayInfo) => (
+                  <div
+                    key={dayInfo.date}
+                    className="border-2 border-gray-200 rounded-lg p-4"
+                  >
+                    <p className="font-bold text-lg mb-3">
+                      {dayInfo.day}日（{weekDayLabels[dayInfo.dayOfWeek]}）
+                    </p>
+                    <div className="space-y-2">
+                      {dayInfo.slots.map((time) => {
+                        const statusData = getReservationStatus(dayInfo.date, time);
+                        const { text, color } = getStatusDisplay(statusData.status);
 
-                  return (
-                    <div
-                      key={dayInfo.date}
-                      className={`border-2 rounded-lg p-4 ${color}`}
-                    >
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <p className="font-bold text-lg">
-                            {dayInfo.day}日 19:00
-                          </p>
-                          <p className="text-sm font-semibold">{text}</p>
-                        </div>
-                        {statusData.status !== 'reserved' && (
-                          <button
-                            onClick={() =>
-                              toggleAvailability(dayInfo.date, statusData.status)
-                            }
-                            className="px-3 py-1 bg-white rounded border border-gray-300 hover:bg-gray-50 text-sm font-semibold"
+                        return (
+                          <div
+                            key={time}
+                            className={`border rounded-lg p-2 ${color}`}
                           >
-                            {statusData.status === 'blocked'
-                              ? '予約可にする'
-                              : '予約不可にする'}
-                          </button>
-                        )}
-                      </div>
+                            <div className="flex justify-between items-center">
+                              <div>
+                                <p className="font-semibold">{time}</p>
+                                <p className="text-xs font-semibold">{text}</p>
+                              </div>
+                              {statusData.status !== 'reserved' && (
+                                <button
+                                  onClick={() =>
+                                    toggleAvailability(dayInfo.date, time, statusData.status)
+                                  }
+                                  className="px-2 py-1 bg-white rounded border border-gray-300 hover:bg-gray-50 text-xs font-semibold"
+                                >
+                                  {statusData.status === 'blocked'
+                                    ? '予約可にする'
+                                    : '予約不可にする'}
+                                </button>
+                              )}
+                            </div>
 
-                      {statusData.status === 'reserved' &&
-                        statusData.reservation && (
-                          <div className="mt-2 pt-2 border-t border-blue-200">
-                            <button
-                              onClick={() =>
-                                setSelectedReservation({
-                                  date: dayInfo.date,
-                                  time: '19:00',
-                                  data: statusData,
-                                })
-                              }
-                              className="text-sm text-blue-600 hover:text-blue-800 underline"
-                            >
-                              予約詳細を表示
-                            </button>
+                            {statusData.status === 'reserved' &&
+                              statusData.reservation && (
+                                <button
+                                  onClick={() =>
+                                    setSelectedReservation({
+                                      date: dayInfo.date,
+                                      time,
+                                      data: statusData,
+                                    })
+                                  }
+                                  className="text-xs text-blue-600 hover:text-blue-800 underline mt-1"
+                                >
+                                  予約詳細を表示
+                                </button>
+                              )}
                           </div>
-                        )}
+                        );
+                      })}
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -302,56 +311,64 @@ export default function AdminReservations() {
                 {nextYear}年{nextMonth + 1}月
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {nextMonthDays.map((dayInfo) => {
-                  const statusData = getReservationStatus(dayInfo.date);
-                  const { text, color } = getStatusDisplay(statusData.status);
+                {nextMonthDays.map((dayInfo) => (
+                  <div
+                    key={dayInfo.date}
+                    className="border-2 border-gray-200 rounded-lg p-4"
+                  >
+                    <p className="font-bold text-lg mb-3">
+                      {dayInfo.day}日（{weekDayLabels[dayInfo.dayOfWeek]}）
+                    </p>
+                    <div className="space-y-2">
+                      {dayInfo.slots.map((time) => {
+                        const statusData = getReservationStatus(dayInfo.date, time);
+                        const { text, color } = getStatusDisplay(statusData.status);
 
-                  return (
-                    <div
-                      key={dayInfo.date}
-                      className={`border-2 rounded-lg p-4 ${color}`}
-                    >
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <p className="font-bold text-lg">
-                            {dayInfo.day}日 19:00
-                          </p>
-                          <p className="text-sm font-semibold">{text}</p>
-                        </div>
-                        {statusData.status !== 'reserved' && (
-                          <button
-                            onClick={() =>
-                              toggleAvailability(dayInfo.date, statusData.status)
-                            }
-                            className="px-3 py-1 bg-white rounded border border-gray-300 hover:bg-gray-50 text-sm font-semibold"
+                        return (
+                          <div
+                            key={time}
+                            className={`border rounded-lg p-2 ${color}`}
                           >
-                            {statusData.status === 'blocked'
-                              ? '予約可にする'
-                              : '予約不可にする'}
-                          </button>
-                        )}
-                      </div>
+                            <div className="flex justify-between items-center">
+                              <div>
+                                <p className="font-semibold">{time}</p>
+                                <p className="text-xs font-semibold">{text}</p>
+                              </div>
+                              {statusData.status !== 'reserved' && (
+                                <button
+                                  onClick={() =>
+                                    toggleAvailability(dayInfo.date, time, statusData.status)
+                                  }
+                                  className="px-2 py-1 bg-white rounded border border-gray-300 hover:bg-gray-50 text-xs font-semibold"
+                                >
+                                  {statusData.status === 'blocked'
+                                    ? '予約可にする'
+                                    : '予約不可にする'}
+                                </button>
+                              )}
+                            </div>
 
-                      {statusData.status === 'reserved' &&
-                        statusData.reservation && (
-                          <div className="mt-2 pt-2 border-t border-blue-200">
-                            <button
-                              onClick={() =>
-                                setSelectedReservation({
-                                  date: dayInfo.date,
-                                  time: '19:00',
-                                  data: statusData,
-                                })
-                              }
-                              className="text-sm text-blue-600 hover:text-blue-800 underline"
-                            >
-                              予約詳細を表示
-                            </button>
+                            {statusData.status === 'reserved' &&
+                              statusData.reservation && (
+                                <button
+                                  onClick={() =>
+                                    setSelectedReservation({
+                                      date: dayInfo.date,
+                                      time,
+                                      data: statusData,
+                                    })
+                                  }
+                                  className="text-xs text-blue-600 hover:text-blue-800 underline mt-1"
+                                >
+                                  予約詳細を表示
+                                </button>
+                              )}
                           </div>
-                        )}
+                        );
+                      })}
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
