@@ -119,7 +119,7 @@ export default function Home() {
                 >
                   <ol
                     start={0}
-                    className="font-mono list-inside list-decimal text-sm/6 text-center"
+                    className="font-mono list-inside list-decimal text-sm/6 text-left"
                   >
                     <li className="mb-2 tracking-[-.01em]">
                       <Link
