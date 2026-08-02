@@ -117,7 +117,21 @@ export default function Home() {
                 }
               `}
                 >
-                  <ol className="font-mono list-inside list-decimal text-sm/6 text-center">
+                  <ol
+                    start={0}
+                    className="font-mono list-inside list-decimal text-sm/6 text-center"
+                  >
+                    <li className="mb-2 tracking-[-.01em]">
+                      <Link
+                        href="/news"
+                        className="hover:text-yellow-500 transition-colors"
+                      >
+                        お知らせ
+                      </Link>
+                      <span className="text-xs text-gray-400 ml-1">
+                        （更新日:2026/08/02）
+                      </span>
+                    </li>
                     <li className="mb-2 tracking-[-.01em]">
                       <Link
                         href="/about"
