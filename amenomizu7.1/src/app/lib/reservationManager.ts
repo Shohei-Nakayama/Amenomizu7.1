@@ -92,6 +92,38 @@ export async function toggleAvailability(
   return { success: true };
 }
 
+// 一日の全スロットを一括でblocked/availableに設定（管理者用）
+export async function blockAllDay(
+  date: string,
+  slots: string[],
+  status: 'blocked' | 'available'
+): Promise<{ success: boolean; error?: string }> {
+  if (status === 'available') {
+    const { error } = await supabaseAdmin
+      .from('reservation_blocks')
+      .delete()
+      .eq('date', date)
+      .in('time', slots);
+
+    if (error) {
+      console.error('一日解除エラー:', error);
+      return { success: false, error: error.message };
+    }
+  } else {
+    const records = slots.map((time) => ({ date, time, status: 'blocked' }));
+    const { error } = await supabaseAdmin
+      .from('reservation_blocks')
+      .upsert(records, { onConflict: 'date,time' });
+
+    if (error) {
+      console.error('一日ブロックエラー:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  return { success: true };
+}
+
 // 全予約データを取得（管理者用）
 export async function getAllReservations(): Promise<Record<string, Record<string, ReservationStatus>>> {
   const { data, error } = await supabaseAdmin

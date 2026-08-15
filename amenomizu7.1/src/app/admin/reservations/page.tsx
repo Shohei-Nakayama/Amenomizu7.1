@@ -79,6 +79,38 @@ export default function AdminReservations() {
     }
   };
 
+  // 一日全スロットのblocked/available状態を判定
+  const isDayFullyBlocked = (dateStr: string, slots: string[]) => {
+    return slots.every((time) => {
+      const statusData = getReservationStatus(dateStr, time);
+      return statusData.status === 'blocked' || statusData.status === 'reserved';
+    });
+  };
+
+  // 一日全スロットを一括で予約不可/予約可に切り替え
+  const toggleDayAvailability = async (dateStr: string, slots: string[], fullyBlocked: boolean) => {
+    const newStatus = fullyBlocked ? 'available' : 'blocked';
+    try {
+      const response = await fetch('/api/admin/block-day', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ date: dateStr, slots, status: newStatus }),
+      });
+
+      if (response.ok) {
+        await loadReservations(token);
+      } else {
+        const errorData = await response.json();
+        alert(`エラー: ${errorData.error || '不明'}`);
+      }
+    } catch (error) {
+      alert(`エラー: ${error}`);
+    }
+  };
+
   // 予約可/不可を切り替え
   const toggleAvailability = async (date: string, time: string, currentStatus: string) => {
     if (currentStatus === 'reserved') {
@@ -244,14 +276,28 @@ export default function AdminReservations() {
                 {currentYear}年{currentMonth + 1}月
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {currentMonthDays.map((dayInfo) => (
+                {currentMonthDays.map((dayInfo) => {
+                  const fullyBlocked = isDayFullyBlocked(dayInfo.date, dayInfo.slots);
+                  return (
                   <div
                     key={dayInfo.date}
                     className="border-2 border-gray-200 rounded-lg p-4"
                   >
-                    <p className="font-bold text-lg mb-3">
-                      {dayInfo.day}日（{weekDayLabels[dayInfo.dayOfWeek]}）
-                    </p>
+                    <div className="flex justify-between items-center mb-3">
+                      <p className="font-bold text-lg">
+                        {dayInfo.day}日（{weekDayLabels[dayInfo.dayOfWeek]}）
+                      </p>
+                      <button
+                        onClick={() => toggleDayAvailability(dayInfo.date, dayInfo.slots, fullyBlocked)}
+                        className={`px-3 py-1 rounded-lg text-xs font-semibold transition-colors ${
+                          fullyBlocked
+                            ? 'bg-green-500 text-white hover:bg-green-600'
+                            : 'bg-red-500 text-white hover:bg-red-600'
+                        }`}
+                      >
+                        {fullyBlocked ? '全枠を予約可に戻す' : '1日全て予約不可'}
+                      </button>
+                    </div>
                     <div className="space-y-2">
                       {dayInfo.slots.map((time) => {
                         const statusData = getReservationStatus(dayInfo.date, time);
@@ -301,7 +347,8 @@ export default function AdminReservations() {
                       })}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -311,14 +358,28 @@ export default function AdminReservations() {
                 {nextYear}年{nextMonth + 1}月
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {nextMonthDays.map((dayInfo) => (
+                {nextMonthDays.map((dayInfo) => {
+                  const fullyBlocked = isDayFullyBlocked(dayInfo.date, dayInfo.slots);
+                  return (
                   <div
                     key={dayInfo.date}
                     className="border-2 border-gray-200 rounded-lg p-4"
                   >
-                    <p className="font-bold text-lg mb-3">
-                      {dayInfo.day}日（{weekDayLabels[dayInfo.dayOfWeek]}）
-                    </p>
+                    <div className="flex justify-between items-center mb-3">
+                      <p className="font-bold text-lg">
+                        {dayInfo.day}日（{weekDayLabels[dayInfo.dayOfWeek]}）
+                      </p>
+                      <button
+                        onClick={() => toggleDayAvailability(dayInfo.date, dayInfo.slots, fullyBlocked)}
+                        className={`px-3 py-1 rounded-lg text-xs font-semibold transition-colors ${
+                          fullyBlocked
+                            ? 'bg-green-500 text-white hover:bg-green-600'
+                            : 'bg-red-500 text-white hover:bg-red-600'
+                        }`}
+                      >
+                        {fullyBlocked ? '全枠を予約可に戻す' : '1日全て予約不可'}
+                      </button>
+                    </div>
                     <div className="space-y-2">
                       {dayInfo.slots.map((time) => {
                         const statusData = getReservationStatus(dayInfo.date, time);
@@ -368,7 +429,8 @@ export default function AdminReservations() {
                       })}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
