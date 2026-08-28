@@ -43,4 +43,8 @@ image: /images/blog/tetsu-nabe-tetsunojuyosei.jpeg
 <br>
 <br>
 脈の取れる鍼灸師であれば、貧血の人が、ちゃんと鉄器で毎日野菜を料理していれば、細脈が解消していくことを見て取ることが出来て、どちらの学説が正しいのか分かることでしょう。<br>
+<br>
+<br>
+※This article is written …<br>
+by Shouhei Nakayama　＝　Guaranteed Human🐏
 </p>
