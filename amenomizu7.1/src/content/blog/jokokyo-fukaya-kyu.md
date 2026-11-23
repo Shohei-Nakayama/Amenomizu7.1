@@ -101,6 +101,5 @@ image: /images/blog/jokokyo-fukaya-kyu.jpeg
 <br>
 <br>
 ※This article is written …<br>
-by Shouhei Nakayama＝Guaranteed Human🐏<br>
-With ClaudeSan🌞
+by Shouhei Nakayama＝Guaranteed Human🐏
 </p>
